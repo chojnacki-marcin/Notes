@@ -14,4 +14,28 @@ public class Image {
 
     @NotNull
     private byte[] imageContent;
+
+    public long getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(long imageId) {
+        this.imageId = imageId;
+    }
+
+    public String getImageTitle() {
+        return imageTitle;
+    }
+
+    public void setImageTitle(String imageTitle) {
+        this.imageTitle = imageTitle;
+    }
+
+    public byte[] getImageContent() {
+        return imageContent;
+    }
+
+    public void setImageContent(byte[] imageContent) {
+        this.imageContent = imageContent;
+    }
 }

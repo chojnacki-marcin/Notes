@@ -15,4 +15,27 @@ public class Item {
 
     private boolean checked;
 
+    public long getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(long itemId) {
+        this.itemId = itemId;
+    }
+
+    public String getItemContent() {
+        return itemContent;
+    }
+
+    public void setItemContent(String itemContent) {
+        this.itemContent = itemContent;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
 }
