@@ -1,9 +1,6 @@
 package com.Notes.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -11,6 +8,7 @@ import java.util.List;
 public class Note {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long noteId;
 
     private String noteTitle;
@@ -18,11 +16,13 @@ public class Note {
     @NotNull
     private String noteContent;
 
-
     @OneToMany
     private List<Image> images;
 
     @OneToMany
     private List<Item> items;
+
+
+    private long accountId;
 
 }
