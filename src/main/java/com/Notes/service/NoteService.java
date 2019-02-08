@@ -1,27 +1,14 @@
 package com.Notes.service;
 
 import com.Notes.entity.Note;
-import com.Notes.repository.NoteRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@Service
-public class NoteService {
+public interface NoteService {
+    List<Note> getUserNotes(long accountId);
 
-    private final NoteRepository noteRepository;
+    Note createNote(Note note, long accountId);
 
-    @Autowired
-    public NoteService(NoteRepository noteRepository) {
-        this.noteRepository = noteRepository;
-    }
-
-    public List<Note> getUserNotes(long accountId){
-        return noteRepository.findAllByAccountId(accountId);
-    }
-
-    public Note createNote(Note note){
-        return noteRepository.save(note);
-    }
+    Note addImageToNote(long noteId, String imageTitle, MultipartFile image);
 }

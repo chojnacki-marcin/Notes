@@ -1,19 +1,26 @@
 package com.Notes.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
 
 @Entity
 public class Image {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long imageId;
 
     private String imageTitle;
 
-    @NotNull
-    private byte[] imageContent;
+    private String imagePath;
+
+    public Image(String imageTitle, String imagePath) {
+        this.imageTitle = imageTitle;
+        this.imagePath = imagePath;
+    }
+
+    public Image(){
+
+    }
 
     public long getImageId() {
         return imageId;
@@ -31,11 +38,11 @@ public class Image {
         this.imageTitle = imageTitle;
     }
 
-    public byte[] getImageContent() {
-        return imageContent;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setImageContent(byte[] imageContent) {
-        this.imageContent = imageContent;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }

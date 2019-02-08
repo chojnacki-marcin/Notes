@@ -5,6 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,7 +22,7 @@ public class Account {
 
     @OneToMany
     @JoinColumn(name = "accountId")
-    private List<Note> notes;
+    private List<Note> notes = new ArrayList<>();
 
     public long getAccountId() {
         return accountId;

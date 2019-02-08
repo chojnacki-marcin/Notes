@@ -2,6 +2,7 @@ package com.Notes.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,10 +18,10 @@ public class Note {
     private String noteContent;
 
     @OneToMany
-    private List<Image> images;
+    private List<Image> images = new ArrayList<>();
 
     @OneToMany
-    private List<Item> items;
+    private List<Item> items = new ArrayList<>();
 
 
     private long accountId;
