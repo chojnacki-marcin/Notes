@@ -64,5 +64,10 @@ public class JpaNoteService implements NoteService {
 
     }
 
+    @Override
+    public Optional<Note> getNote(long noteId) {
+        return noteRepository.findById(noteId);
+    }
+
 
 }

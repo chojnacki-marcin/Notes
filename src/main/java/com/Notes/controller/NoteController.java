@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/users/{accountId}/notes")
@@ -28,6 +29,18 @@ public class NoteController {
     @GetMapping
     public List<Note> getUserNotes(@PathVariable long accountId){
         return noteService.getUserNotes(accountId);
+    }
+
+
+    @GetMapping("/{noteId}")
+    public ResponseEntity<Note> getNote(@PathVariable long noteId){
+        Optional<Note> note = noteService.getNote(noteId);
+        if(note.isPresent()){
+            return new ResponseEntity<>(note.get(), HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping
