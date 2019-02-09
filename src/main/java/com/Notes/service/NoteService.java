@@ -11,4 +11,7 @@ public interface NoteService {
     Note createNote(Note note, long accountId);
 
     Note addImageToNote(long noteId, String imageTitle, MultipartFile image);
+
+    boolean updateNote(long noteId, Note newNote);
+
 }

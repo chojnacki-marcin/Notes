@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class JpaNoteService implements NoteService {
@@ -46,6 +47,19 @@ public class JpaNoteService implements NoteService {
 
         } else {
             throw new NoteNotFoundException();
+        }
+
+    }
+
+    @Override
+    public boolean updateNote(long noteId, Note newNote) {
+        if(noteRepository.findById(noteId).isPresent()){
+            newNote.setNoteId(noteId);
+            noteRepository.save(newNote);
+            return true;
+        }
+        else {
+            return false;
         }
 
     }
