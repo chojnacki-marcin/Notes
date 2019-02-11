@@ -70,5 +70,17 @@ public class FileSystemImageService implements ImageService {
         return Files.readAllBytes(path);
     }
 
+    @Override
+    public void deleteImage(Image i) {
+        deleteImageFile(i);
+        imageRepository.delete(i);
+    }
+
+    private void deleteImageFile(Image i) {
+        Path filePath = uploadPath.resolve(i.getImagePath());
+        File file = new File(filePath.toUri());
+        file.delete();
+    }
+
 
 }

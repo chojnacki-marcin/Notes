@@ -69,5 +69,20 @@ public class JpaNoteService implements NoteService {
         return noteRepository.findById(noteId);
     }
 
+    @Override
+    public boolean deleteNote(long noteId) {
+        Optional<Note> noteOptional = noteRepository.findById(noteId);
+        if(noteOptional.isPresent()){
+            Note note = noteOptional.get();
+            note.getImages().forEach(imageService::deleteImage);
+            noteRepository.delete(note);
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+
 
 }

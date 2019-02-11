@@ -17,4 +17,5 @@ public interface NoteService {
 
     Optional<Note> getNote(long noteId);
 
+    boolean deleteNote(long noteId);
 }

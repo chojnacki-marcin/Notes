@@ -17,10 +17,10 @@ public class Note {
     @NotNull
     private String noteContent;
 
-    @OneToMany
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Image> images = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Item> items = new ArrayList<>();
 
 
