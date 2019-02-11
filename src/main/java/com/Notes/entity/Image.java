@@ -1,6 +1,9 @@
 package com.Notes.entity;
 
+
+
 import javax.persistence.*;
+
 
 @Entity
 public class Image {
@@ -10,8 +13,12 @@ public class Image {
     private long imageId;
 
     private String imageTitle;
-
     private String imagePath;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "image_note_id", referencedColumnName = "noteId")
+    private Note note;
+
 
     public Image(String imageTitle, String imagePath) {
         this.imageTitle = imageTitle;
@@ -21,6 +28,9 @@ public class Image {
     public Image(){
 
     }
+
+
+
 
     public long getImageId() {
         return imageId;

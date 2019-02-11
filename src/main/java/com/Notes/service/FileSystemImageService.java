@@ -1,6 +1,7 @@
 package com.Notes.service;
 
 import com.Notes.configuration.UploadProperties;
+import com.Notes.entity.Account;
 import com.Notes.entity.Image;
 import com.Notes.entity.Note;
 import com.Notes.exception.UploadException;
@@ -15,6 +16,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 @Service
 public class FileSystemImageService implements ImageService {
@@ -75,6 +79,14 @@ public class FileSystemImageService implements ImageService {
         deleteImageFile(i);
         imageRepository.delete(i);
     }
+
+
+    @Override
+    public void deleteImage(long imageId) {
+        Optional<Image> imageOptional = imageRepository.findById(imageId);
+        imageOptional.ifPresent(this::deleteImage);
+    }
+
 
     private void deleteImageFile(Image i) {
         Path filePath = uploadPath.resolve(i.getImagePath());

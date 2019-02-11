@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "note")
 public class Note {
 
     @Id
@@ -17,7 +18,7 @@ public class Note {
     @NotNull
     private String noteContent;
 
-    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "note")
     private List<Image> images = new ArrayList<>();
 
     @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
