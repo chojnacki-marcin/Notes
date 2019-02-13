@@ -27,7 +27,17 @@ public class JpaNoteService implements NoteService {
 
     @Override
     public List<Note> getUserNotes(long accountId) {
-        return noteRepository.findAllByAccountId(accountId);
+        List<Note> notes = noteRepository.findAllByAccountId(accountId);
+        //called to fetch lazy loaded entities
+//        initializeChildEntities(notes);
+        return notes;
+    }
+
+    private void initializeChildEntities(List<Note> notes) {
+        notes.forEach(note -> {
+            note.getImages().size();
+            note.getItems().size();
+        });
     }
 
     @Override

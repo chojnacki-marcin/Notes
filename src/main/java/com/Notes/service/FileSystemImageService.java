@@ -87,6 +87,11 @@ public class FileSystemImageService implements ImageService {
         imageOptional.ifPresent(this::deleteImage);
     }
 
+    @Override
+    public Optional<Image> getImage(long imageId) {
+        return imageRepository.findById(imageId);
+    }
+
 
     private void deleteImageFile(Image i) {
         Path filePath = uploadPath.resolve(i.getImagePath());

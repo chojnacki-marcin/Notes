@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/users/{accountId}/notes")
+@RequestMapping("/api/users/{accountId}/notes")
 public class NoteController {
 
     private final NoteService noteService;
@@ -50,11 +50,7 @@ public class NoteController {
     }
 
 
-    @PostMapping("/{noteId}/images")
-    public ResponseEntity<Note> addImageToNote(@PathVariable long noteId, @RequestParam("title") String imageTitle, @RequestParam("image") MultipartFile image){
-        Note note = noteService.addImageToNote(noteId, imageTitle, image);
-        return new ResponseEntity<>(note, HttpStatus.CREATED);
-    }
+
 
     @PutMapping("/{noteId}")
     public ResponseEntity modifyNote(@RequestBody @Valid Note newNote, @PathVariable long noteId){

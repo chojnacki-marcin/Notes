@@ -11,6 +11,7 @@ public class Note {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "note_id")
     private long noteId;
 
     private String noteTitle;
@@ -18,7 +19,7 @@ public class Note {
     @NotNull
     private String noteContent;
 
-    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, mappedBy = "note")
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Image> images = new ArrayList<>();
 
     @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)

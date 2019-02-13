@@ -15,10 +15,6 @@ public class Image {
     private String imageTitle;
     private String imagePath;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "image_note_id", referencedColumnName = "noteId")
-    private Note note;
-
 
     public Image(String imageTitle, String imagePath) {
         this.imageTitle = imageTitle;
@@ -55,4 +51,6 @@ public class Image {
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
     }
+
+
 }
