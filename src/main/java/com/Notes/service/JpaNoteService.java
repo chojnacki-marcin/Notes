@@ -2,7 +2,6 @@ package com.Notes.service;
 
 import com.Notes.entity.Image;
 import com.Notes.entity.Note;
-import com.Notes.exception.NoteNotFoundException;
 import com.Notes.repository.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

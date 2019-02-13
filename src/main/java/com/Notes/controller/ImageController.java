@@ -2,7 +2,6 @@ package com.Notes.controller;
 
 import com.Notes.entity.Image;
 import com.Notes.entity.Note;
-import com.Notes.exception.NoteNotFoundException;
 import com.Notes.service.ImageService;
 import com.Notes.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
