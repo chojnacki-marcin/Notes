@@ -1,5 +1,6 @@
 package com.Notes.service;
 
+import com.Notes.entity.Image;
 import com.Notes.entity.Note;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,7 +12,7 @@ public interface NoteService {
 
     Note createNote(Note note, long accountId);
 
-    Note addImageToNote(long noteId, String imageTitle, MultipartFile image);
+    Optional<Image> addImageToNote(long noteId, String imageTitle, MultipartFile image);
 
     boolean updateNote(long noteId, Note newNote);
 

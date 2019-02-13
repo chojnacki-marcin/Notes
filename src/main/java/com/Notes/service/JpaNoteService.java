@@ -3,7 +3,6 @@ package com.Notes.service;
 import com.Notes.entity.Image;
 import com.Notes.entity.Note;
 import com.Notes.exception.NoteNotFoundException;
-import com.Notes.repository.ImageRepository;
 import com.Notes.repository.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,18 +26,10 @@ public class JpaNoteService implements NoteService {
 
     @Override
     public List<Note> getUserNotes(long accountId) {
-        List<Note> notes = noteRepository.findAllByAccountId(accountId);
-        //called to fetch lazy loaded entities
-//        initializeChildEntities(notes);
-        return notes;
+        return noteRepository.findAllByAccountId(accountId);
     }
 
-    private void initializeChildEntities(List<Note> notes) {
-        notes.forEach(note -> {
-            note.getImages().size();
-            note.getItems().size();
-        });
-    }
+
 
     @Override
     public Note createNote(Note note, long accountId) {
@@ -47,16 +38,16 @@ public class JpaNoteService implements NoteService {
     }
 
     @Override
-    public Note addImageToNote(long noteId, String imageTitle, MultipartFile file) {
+    public Optional<Image> addImageToNote(long noteId, String imageTitle, MultipartFile file) {
         if (noteRepository.findById(noteId).isPresent()) {
             Note note = noteRepository.findById(noteId).get();
             Image image = imageService.saveImage(file, imageTitle, note);
             note.getImages().add(image);
             noteRepository.save(note);
-            return note;
+            return Optional.of(image);
 
         } else {
-            throw new NoteNotFoundException();
+            return Optional.empty();
         }
 
     }

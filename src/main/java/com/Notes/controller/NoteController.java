@@ -35,12 +35,8 @@ public class NoteController {
     @GetMapping("/{noteId}")
     public ResponseEntity<Note> getNote(@PathVariable long noteId){
         Optional<Note> note = noteService.getNote(noteId);
-        if(note.isPresent()){
-            return new ResponseEntity<>(note.get(), HttpStatus.OK);
-        }
-        else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return note.map(n -> new ResponseEntity<>(n, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping

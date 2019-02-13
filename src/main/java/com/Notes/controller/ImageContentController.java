@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/images/{accountId}/{imageName}")
@@ -23,8 +24,14 @@ public class ImageContentController {
 
     @GetMapping
     public ResponseEntity<byte[]> getImageContent(@PathVariable long accountId, @PathVariable String imageName) throws IOException {
-        byte[] image = imageService.getImageContents(accountId, imageName);
-        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(image);
+        Optional<byte[]> image = imageService.getImageContents(accountId, imageName);
+        if(image.isPresent()){
+            return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(image.get());
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
     }
 
 

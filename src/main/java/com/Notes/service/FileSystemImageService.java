@@ -1,7 +1,6 @@
 package com.Notes.service;
 
 import com.Notes.configuration.UploadProperties;
-import com.Notes.entity.Account;
 import com.Notes.entity.Image;
 import com.Notes.entity.Note;
 import com.Notes.exception.UploadException;
@@ -16,9 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 
 @Service
 public class FileSystemImageService implements ImageService {
@@ -69,9 +66,13 @@ public class FileSystemImageService implements ImageService {
     }
 
     @Override
-    public byte[] getImageContents(long accountId, String imageName) throws IOException {
+    public Optional<byte[]> getImageContents(long accountId, String imageName) {
         Path path = uploadPath.resolve(Long.toString(accountId)).resolve(imageName);
-        return Files.readAllBytes(path);
+        try {
+            return Optional.of(Files.readAllBytes(path));
+        } catch (IOException e) {
+            return Optional.empty();
+        }
     }
 
     @Override
