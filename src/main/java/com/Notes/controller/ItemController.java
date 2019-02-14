@@ -3,12 +3,11 @@ package com.Notes.controller;
 import com.Notes.entity.Item;
 import com.Notes.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,4 +33,34 @@ public class ItemController {
         Optional<Item> item = itemService.getItem(itemId);
         return ResponseEntity.of(item);
     }
+
+    @PostMapping
+    public ResponseEntity<Item> addItem(@PathVariable long noteId, @RequestBody @Valid Item item){
+        Optional<Item> createdItem = itemService.addItemToNote(noteId, item);
+        return ResponseEntity.of(createdItem);
+    }
+
+
+
+    @PutMapping("/{itemId}")
+    public ResponseEntity modifyItem(@PathVariable long itemId, @RequestBody @Valid Item item){
+        if(itemService.modifyItem(itemId, item)){
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        }
+        else {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/{itemId}")
+    public ResponseEntity deleteItem(@PathVariable long itemId){
+        if(itemService.deleteItem(itemId)){
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+        }
+        else {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+    }
+
 }

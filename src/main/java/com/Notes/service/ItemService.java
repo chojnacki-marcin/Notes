@@ -13,4 +13,10 @@ public interface ItemService {
     List<Item> getItemsFromNote(long noteId);
 
     Optional<Item> getItem(long itemId);
+
+    Optional<Item> addItemToNote(long noteId, Item item);
+
+    boolean modifyItem(long itemId, Item newItem);
+
+    boolean deleteItem(long itemId);
 }
