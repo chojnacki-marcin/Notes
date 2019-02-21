@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/users/{accountId}/notes/{noteId}/items")
+@RequestMapping("/api/notes/{noteId}/items")
 public class ItemController {
 
     private final ItemService itemService;

@@ -22,8 +22,7 @@ public class Account implements UserDetails {
     @NotNull
     private String hashedPassword;
 
-    @OneToMany
-    @JoinColumn(name = "accountId")
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Note> notes = new ArrayList<>();
 
     public Account (){

@@ -1,9 +1,11 @@
 package com.Notes.service;
 
+import com.Notes.entity.Account;
 import com.Notes.entity.Image;
 import com.Notes.entity.Note;
 import com.Notes.repository.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,24 +25,19 @@ public class JpaNoteService implements NoteService {
         this.imageService = imageService;
     }
 
-    @Override
-    public List<Note> getUserNotes(long accountId) {
-        return noteRepository.findAllByAccountId(accountId);
-    }
-
-
 
     @Override
-    public Note createNote(Note note, long accountId) {
-        note.setAccountId(accountId);
-        return noteRepository.save(note);
+    public Note createNote(Note note, Account account) {
+        Note newNote = noteRepository.save(note);
+        account.getNotes().add(newNote);
+        return newNote;
     }
 
     @Override
-    public Optional<Image> addImageToNote(long noteId, String imageTitle, MultipartFile file) {
+    public Optional<Image> addImageToNote(long noteId, String imageTitle, MultipartFile file, long accountId) {
         if (noteRepository.findById(noteId).isPresent()) {
             Note note = noteRepository.findById(noteId).get();
-            Image image = imageService.saveImage(file, imageTitle, note);
+            Image image = imageService.saveImage(file, imageTitle, note, accountId);
             note.getImages().add(image);
             noteRepository.save(note);
             return Optional.of(image);

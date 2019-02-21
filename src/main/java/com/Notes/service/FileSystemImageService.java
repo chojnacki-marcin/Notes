@@ -34,13 +34,13 @@ public class FileSystemImageService implements ImageService {
     }
 
     @Override
-    public Image saveImage(MultipartFile imageFile, String imageTitle, Note note) {
-        String imageName = saveFileOnServer(imageFile, note);
-        Image image = new Image(imageTitle, String.format(IMAGE_PATH_TEMPLATE, note.getAccountId(), imageName));
+    public Image saveImage(MultipartFile imageFile, String imageTitle, Note note, long accountId) {
+        String imageName = saveFileOnServer(imageFile, note, accountId);
+        Image image = new Image(imageTitle, String.format(IMAGE_PATH_TEMPLATE, accountId, imageName));
         return imageRepository.save(image);
     }
 
-    private String saveFileOnServer(MultipartFile imageFile, Note note) {
+    private String saveFileOnServer(MultipartFile imageFile, Note note, long accountId) {
         String filename = String.format(FILENAME_TEMPLATE, note.getNoteId(), note.getImages().size());
         try {
             if (imageFile.isEmpty()) {
@@ -49,7 +49,7 @@ public class FileSystemImageService implements ImageService {
             if(!isImage(imageFile)){
                 throw new UploadException("File is not an image");
             }
-            Path path = uploadPath.resolve(Long.toString(note.getAccountId())).resolve(filename);
+            Path path = uploadPath.resolve(Long.toString(accountId)).resolve(filename);
             File file = new File(path.toString());
             file.getParentFile().mkdirs();
             imageFile.transferTo(file);

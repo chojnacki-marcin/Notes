@@ -1,5 +1,6 @@
 package com.Notes.controller;
 
+import com.Notes.entity.Account;
 import com.Notes.entity.Image;
 import com.Notes.entity.Note;
 import com.Notes.service.ImageService;
@@ -7,13 +8,14 @@ import com.Notes.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/users/{accountId}/notes/{noteId}/images")
+@RequestMapping("/api/notes/{noteId}/images")
 public class ImageController {
 
     private final ImageService imageService;
@@ -42,8 +44,9 @@ public class ImageController {
     }
 
     @PostMapping
-    public ResponseEntity<Image> addImageToNote(@PathVariable long noteId, @RequestParam("title") String imageTitle, @RequestParam("image") MultipartFile image) {
-        Optional<Image> note = noteService.addImageToNote(noteId, imageTitle, image);
+    public ResponseEntity<Image> addImageToNote(@PathVariable long noteId, @RequestParam("title") String imageTitle,
+                                                @RequestParam("image") MultipartFile image, @AuthenticationPrincipal Account account) {
+        Optional<Image> note = noteService.addImageToNote(noteId, imageTitle, image, account.getAccountId());
         return ResponseEntity.of(note);
     }
 }

@@ -26,7 +26,6 @@ public class Note {
     private List<Item> items = new ArrayList<>();
 
 
-    private long accountId;
 
     public long getNoteId() {
         return noteId;
@@ -68,11 +67,4 @@ public class Note {
         this.items = items;
     }
 
-    public long getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(long accountId) {
-        this.accountId = accountId;
-    }
 }

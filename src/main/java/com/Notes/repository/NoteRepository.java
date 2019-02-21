@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface NoteRepository extends CrudRepository<Note, Long> {
-    List<Note> findAllByAccountId(long accountId);
+
 }
