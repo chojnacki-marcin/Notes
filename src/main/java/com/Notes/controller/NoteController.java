@@ -7,6 +7,7 @@ import com.Notes.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +33,7 @@ public class NoteController {
 
 
     @GetMapping("/{noteId}")
+    @PreAuthorize("@securityService.isOwner(authentication, #noteId)")
     public ResponseEntity<Note> getNote(@PathVariable long noteId){
         Optional<Note> note = noteService.getNote(noteId);
         return note.map(n -> new ResponseEntity<>(n, HttpStatus.OK))

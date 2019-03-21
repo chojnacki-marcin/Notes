@@ -1,7 +1,6 @@
 package com.Notes.controller;
 
 import com.Notes.dto.AccountDto;
-import com.Notes.entity.Note;
 import com.Notes.service.AccountService;
 import com.Notes.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")

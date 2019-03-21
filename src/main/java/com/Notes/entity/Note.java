@@ -1,5 +1,7 @@
 package com.Notes.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -10,8 +12,8 @@ import java.util.List;
 public class Note {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "note_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    //@Column(name = "note_id")
     private long noteId;
 
     private String noteTitle;
@@ -25,6 +27,10 @@ public class Note {
     @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Item> items = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    @JsonIgnore
+    private Account owner;
 
 
     public long getNoteId() {
@@ -67,4 +73,11 @@ public class Note {
         this.items = items;
     }
 
+    public Account getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Account owner) {
+        this.owner = owner;
+    }
 }

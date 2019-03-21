@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 public class Item {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long itemId;
 
     @NotNull

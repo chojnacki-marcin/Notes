@@ -28,9 +28,8 @@ public class JpaNoteService implements NoteService {
 
     @Override
     public Note createNote(Note note, Account account) {
-        Note newNote = noteRepository.save(note);
-        account.getNotes().add(newNote);
-        return newNote;
+        note.setOwner(account);
+        return noteRepository.save(note);
     }
 
     @Override

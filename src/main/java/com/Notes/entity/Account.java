@@ -3,6 +3,7 @@ package com.Notes.entity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.annotation.Generated;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.List;
 public class Account implements UserDetails {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long accountId;
 
     @NotNull
