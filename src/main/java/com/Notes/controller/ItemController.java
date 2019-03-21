@@ -5,6 +5,7 @@ import com.Notes.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -23,17 +24,20 @@ public class ItemController {
     }
 
     @GetMapping
+    @PreAuthorize("@securityService.isOwner(authentication, #noteId)")
     public List<Item> getItemsFromNote(@PathVariable long noteId){
         return itemService.getItemsFromNote(noteId);
     }
 
     @GetMapping("/{itemId}")
-    public ResponseEntity<Item> getNote(@PathVariable long itemId){
+    @PreAuthorize("@securityService.isOwner(authentication, #noteId)")
+    public ResponseEntity<Item> getItem(@PathVariable long itemId, @PathVariable long noteId){
         Optional<Item> item = itemService.getItem(itemId);
         return ResponseEntity.of(item);
     }
 
     @PostMapping
+    @PreAuthorize("@securityService.isOwner(authentication, #noteId)")
     public ResponseEntity<Item> addItem(@PathVariable long noteId, @RequestBody @Valid Item item){
         Optional<Item> createdItem = itemService.addItemToNote(noteId, item);
         return ResponseEntity.of(createdItem);
@@ -42,7 +46,8 @@ public class ItemController {
 
 
     @PutMapping("/{itemId}")
-    public ResponseEntity modifyItem(@PathVariable long itemId, @RequestBody @Valid Item item){
+    @PreAuthorize("@securityService.isOwner(authentication, #noteId)")
+    public ResponseEntity modifyItem(@PathVariable long itemId, @RequestBody @Valid Item item, @PathVariable long noteId){
         if(itemService.modifyItem(itemId, item)){
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         }
@@ -52,7 +57,8 @@ public class ItemController {
     }
 
     @DeleteMapping("/{itemId}")
-    public ResponseEntity deleteItem(@PathVariable long itemId){
+    @PreAuthorize("@securityService.isOwner(authentication, #noteId)")
+    public ResponseEntity deleteItem(@PathVariable long itemId, @PathVariable long noteId){
         if(itemService.deleteItem(itemId)){
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         }

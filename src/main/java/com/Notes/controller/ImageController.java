@@ -29,7 +29,8 @@ public class ImageController {
     }
 
     @GetMapping("/{imageId}")
-    public ResponseEntity<Image> getImage(@PathVariable long imageId) {
+    @PreAuthorize("@securityService.isOwner(authentication, #noteId)")
+    public ResponseEntity<Image> getImage(@PathVariable long imageId, @PathVariable long noteId) {
         Optional<Image> image = imageService.getImage(imageId);
         if (image.isPresent()) {
             return new ResponseEntity<>(image.get(), HttpStatus.OK);
@@ -39,12 +40,14 @@ public class ImageController {
     }
 
     @DeleteMapping("/{imageId}")
-    public ResponseEntity deleteImage(@PathVariable long imageId) {
+    @PreAuthorize("@securityService.isOwner(authentication, #noteId)")
+    public ResponseEntity deleteImage(@PathVariable long imageId, @PathVariable long noteId) {
         imageService.deleteImage(imageId);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping
+    @PreAuthorize("@securityService.isOwner(authentication, #noteId)")
     public ResponseEntity<Image> addImageToNote(@PathVariable long noteId, @RequestParam("title") String imageTitle,
                                                 @RequestParam("image") MultipartFile image, @AuthenticationPrincipal Account account) {
         Optional<Image> note = noteService.addImageToNote(noteId, imageTitle, image, account.getAccountId());

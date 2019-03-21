@@ -50,6 +50,7 @@ public class NoteController {
 
 
     @PutMapping("/{noteId}")
+    @PreAuthorize("@securityService.isOwner(authentication, #noteId)")
     public ResponseEntity modifyNote(@RequestBody @Valid Note newNote, @PathVariable long noteId){
         if(noteService.updateNote(noteId, newNote)){
             return new ResponseEntity(HttpStatus.NO_CONTENT);
@@ -60,6 +61,7 @@ public class NoteController {
     }
 
     @DeleteMapping("/{noteId}")
+    @PreAuthorize("@securityService.isOwner(authentication, #noteId)")
     public ResponseEntity deleteNote(@PathVariable long noteId){
         if(noteService.deleteNote(noteId)){
             return new ResponseEntity(HttpStatus.NO_CONTENT);
