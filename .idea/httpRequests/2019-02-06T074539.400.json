@@ -1,7 +1,0 @@
-{
-  "timestamp": "2019-02-06T18:45:39.616+0000",
-  "status": 400,
-  "error": "Bad Request",
-  "message": "Required request body is missing: public org.springframework.http.ResponseEntity<com.Notes.entity.Note> com.Notes.controller.NoteController.createNote(com.Notes.entity.Note)",
-  "path": "/notes"
-}
