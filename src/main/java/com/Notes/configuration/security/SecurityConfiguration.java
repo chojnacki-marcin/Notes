@@ -22,6 +22,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
 
     private AuthenticationProvider authenticationProvider;
+    private static final String[] SWAGGER_AUTH_WHITELIST = {
+
+            // -- swagger ui
+            "/swagger-resources/**",
+            "/swagger-ui.html",
+            "/v2/api-docs",
+            "/webjars/**"
+    };
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
@@ -37,6 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/users").permitAll()
+                .antMatchers(SWAGGER_AUTH_WHITELIST).permitAll()
                 .anyRequest().authenticated();
     }
 
