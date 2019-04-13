@@ -14,6 +14,15 @@ public class AccountDto {
     @Size(min = 8)
     private String password;
 
+    public AccountDto(){
+
+    }
+
+    public AccountDto(@NotNull @Email String email, @NotNull @Size(min = 8) String password) {
+        this.email = email;
+        this.password = password;
+    }
+
     public String getEmail() {
         return email;
     }
