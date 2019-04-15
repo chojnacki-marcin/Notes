@@ -38,7 +38,7 @@ public class JpaAccountService implements UserDetailsService, AccountService {
 
     @Override
     public boolean createAccount(AccountDto accountDto){
-        if(emailExists(accountDto.getEmail())){
+        if(accountDto == null || emailExists(accountDto.getEmail())){
             return false;
         }
         String hashedPassword = passwordEncoder.encode(accountDto.getPassword());
